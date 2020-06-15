@@ -1,0 +1,15 @@
+/*6. Todas las líneas de transacciones, por los campos: Número de documento, Código de la
+cuenta, Nombre de la cuenta y Valor, emitiendo un subtotal y total por número de
+documento (consulte la utilización de la cláusula COMPUTE y COMPUTE BY).*/
+select LineaTransacc.NroDocumento, LineaTransacc.CodCuenta, Cuenta.Nombre, LineaTransacc.Valor
+from LineaTransacc inner join cuenta on LineaTransacc.CodCuenta = cuenta.CodCuenta order by 
+lineatransacc.nrodocumento, lineatransacc.valor compute sum(lineatransacc.valor) by lineatransacc.nrodocumento
+
+/*7. El nombre de la cuenta, la cantidad de veces que tuvo transacciones y el promedio del
+valor de la transacción.*/
+
+
+10.  Los alumnos cuyo promedio supera el promedio de Visual Basic
+select * from alumno where DocIdent in (select DocIdent from nota 
+where CodAsig in (select CodAsig from Asignatura where nombre = 'lenguaje de programación')
+and avg(definitiva)>4)

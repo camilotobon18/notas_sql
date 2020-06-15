@@ -1,0 +1,51 @@
+relacion de muchos a muchos
+crear una tabla intermedia con las claves primarias
+ej: nit - cod_producto
+
+clave foranea, la clave primaria q se relaciona en otra tabla
+
+generalizacion y especificacion
+TIPODOCUMENTO
+1. cedula
+2. tarjeta identidad
+
+GENERO
+1. masculino
+2. femenino
+
+se podrian agrupar en una tabla, y muchas tablas por el estilo. datawarehouse
+
+los totales son opcionales en las BD. varia la velocidad de consulta
+
+sistemas y emprendemiento. youtube BD
+
+cuando hay relaciones circulares se debe eliminar la de menor pertinencia.
+se debe hacer la relacion jerarquica.
+ej: pais, departamento, municipio
+
+referencias circulares, una tabla que apunta a si misma
+
+_H se nomencla normalmente con guion bajo al principio, las tablas q se intentaron o se optimizaron
+
+UBICACION
+idUbicacion
+nombreUbicacion
+idUbicacion_R
+
+TIPOUBICACION
+idTipoUbicacion
+tipoUbicacion
+
+1- Pais
+2- Departamento
+3- Ciudad
+4- Estados
+5- Comuna
+
+1. Colombia 
+2. EEUU
+3. Argentina
+4. Antioquia	1 //hace referencia a Colombia
+6. Medellin		4 //hace referencia a Antioquia
+7. Florida		2
+8. Comuna 13	6 //hace referencia a Medellin

@@ -1,0 +1,17 @@
+use Academico
+
+--crear un procedimiento almacenado para listar los alumnos de medellin
+
+create procedure Pa_listaAlumnosMedellinAZ
+As
+select * from Alumno where Ciudad='medellin'
+
+--ejecucion
+Pa_listaAlumnosMedellinAZ
+execute Pa_listaAlumnosMedellinAZ
+--crear una pa para listas las notas del alumno con identificacion 1111111
+
+create procedure Pa_NotaAlumnoAz
+as
+select * from Nota where DocIdent='11111111'
+execute Pa_NotaAlumnoAz

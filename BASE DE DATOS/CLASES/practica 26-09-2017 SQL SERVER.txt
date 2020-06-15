@@ -1,0 +1,83 @@
+use Academico
+/*campos calculados y/o alias de campos*/
+/*si lleva espacio, debe ir entre comillas*/
+/*los campos calculados no deben ir en la tabla,
+se pueden calcular con un select*/
+/*en un WHERE no puede ir un campo de alias o 
+campo calculado, se debe aplicar a la formula*/
+/*el ORDER BY si permite utilizar un campo de alias
+o campo calculado*/
+select * from Alumno
+select docident as Identificacion, apellidos, nombres,
+'Fecha de Nacimiento' = fechanacim, Genero as Sexo,
+Valor_Cuota = VlrCuota, Valor_Iva = Vlrcuota*19/100,
+vlrcuota*110/100 As Nueva_Cuota from alumno
+where vlrcuota*19/100 > 15000
+order by nueva_cuota
+
+/*patrones de busqueda con la clausula LIKE (se usa con 
+la clausula WHERE)
+comodines:
+%: representa varios caracteres
+_: representa un caracter
+*/
+--listar los alumnos cuya identificacion empieza por 1
+select * from Alumno where docident like '1%'
+--listar los alumnos cuya identificacion termina en 1
+select * from Alumno where docident like '%1'
+select * from Alumno where docident like '15%5'
+select * from Alumno where docident like '1_1%'
+
+--listar los alumnos cuyos apellidos empiecen por Go
+select * from Alumno where apellidos like 'go%'
+
+/*manejo de Null (vacio)
+Is Null: es o está vacío
+Is not Null: no es o no está vacío
+Función ISNULL (<campo>, <mensaje>)*/
+select * from alumno where email Is Null 
+select * from alumno where email is not null
+select apellidos, nombres, telefono, isnull(email,'sin correo')
+as correo_electronico from alumno 
+select apellidos, nombres, telefono, isnull(email,'')
+as correo_electronico from alumno 
+
+/*manejo de fechas:
+	formato ANSI: yyyymmdd
+	formato con slash o guión
+		SET DATEFORMAT mdy | dmy
+	funciones de fecha:
+		day(<fecha<): extrae el número del día de una fecha
+		month(<fecha<): extrae el número del mes de una fecha
+		year(<fecha>): extrae el número del año de una fecha
+		GetDate(): extrae la fecha y hora del sistema
+*/
+
+--Listar los alumnos nacidos entre 1970 y 1990
+--con formato ANSI
+select * from alumno where FechaNacim >= '19700101'
+and fechanacim <= '19901231'
+
+select * from alumno where fechanacim between '19700101'
+and '19901231'
+
+--con slash o guión
+set dateformat mdy
+select * from alumno where FechaNacim between '01/01/1970'
+and '12/31/1990'
+
+select * from alumno where year (fechanacim) between 1970 and 1990
+
+--listar los alumnos nacidos en marzo de 1974
+select * from alumno where month (fechanacim) = 3 
+and  year (fechanacim) = 1974
+
+--listar los alumnos mayores de edad
+select * from alumno where fechanacim < GETDATE()-(18*365)/*erronea, no tiene en cuenta año bisiesto*/
+select * from alumno where year (getdate()) - year (fechanacim) >= 18
+--listar los alumnos menores de edad
+select * from alumno where fechanacim > GETDATE()-(18*365)
+select * from alumno where year(getdate()) - year (fechanacim) < 18
+--listar apellidos, nombres, edad de todos los alumnos 
+select apellidos,nombres,year(getdate())- year (FechaNacim) as edad from alumno
+
